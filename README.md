@@ -9,73 +9,28 @@ An interactive Python tool that works like a **pocket financial advisor** for sm
 | **Input**  | Answers typed by the business owner (costs, products, staff, cash, debts)    |
 | **Output** | Console report, text report, 3 charts, history file for month-over-month use |
 
-The report follows four steps: **What** happened, **Why** it happened, **So what** it means, **Now what** to do.
+The running example in the prompts is a coffee shop, so every question comes with a realistic sample answer.
 
 ---
 
-## Example run
+## What the report tells the owner
 
-> **Note:** the inputs below are illustrative sample numbers for a small bar, not a real business. The tool's calculations are real.
+The report answers four questions: **What** happened, **Why** it happened, **So what** it means, **Now what** to do.
 
-Inputs: 3 products (coffee €5.00, juice €3.00, beer €6.00; 1,000 / 2,000 / 4,000 sold per month), €3,000 fixed costs, 3 employees (€2,402 payroll).
-
-### 1. What (what the numbers show)
-
-| Metric                     | Result       |
-|----------------------------|-------------:|
-| Revenue                    | 35,000       |
-| Total costs                | 12,802       |
-| Profit (pre-tax)           | 22,198       |
-| Break-even revenue         | 6,850        |
-| Bankruptcy risk score      | 36.6 / 100   |
-| Combined risk level        | Low          |
-| Business Health Score      | 78.1 / 100   |
-
-The business sells about five times its break-even level, so it has an 80% margin of safety.
-
-### 2. Why (what explains it)
-
-| Product | Margin | Monthly profit contribution |
-|---------|-------:|----------------------------:|
-| Beer    | 83.3%  | 20,000                      |
-| Coffee  | 80.0%  | 4,000                       |
-| Juice   | 60.0%  | 3,600                       |
-
-- **Beer drives the result:** it brings in 69% of revenue and 72% of the profit contribution.
-- **Costs are light:** payroll is about 7% of revenue and fixed costs are 3,000, so most of each sale is kept.
-
-### 3. So what (what it means)
-
-- The business is healthy, but it depends on one product. A 20% fall in beer sales would remove about 4,000 of monthly profit.
-- The what-if scenarios show it can absorb shocks:
-
-| Scenario                  | Monthly profit |
-|---------------------------|---------------:|
-| Current                   | 22,198         |
-| All prices +10%           | 25,698         |
-| Sales -20%                | 16,678         |
-| Product costs +15%        | 21,088         |
-
-- Even in the worst case (sales -20%) the business stays clearly profitable.
-
-### 4. Now what (what to do)
-
-| # | Action                                                                                               | Success metric                         |
-|---|------------------------------------------------------------------------------------------------------|----------------------------------------|
-| 1 | Push the best earner (beer): feature it on the menu and bundle it. +10% beer sales is worth ~2,000/month | Beer units sold per month              |
-| 2 | Test a small price rise before applying it to everything (+10% prices adds ~3,500/month in the model, but demand may drop) | Units sold after the change            |
-| 3 | Watch the dependence on beer; promote coffee and juice so a bad beer month hurts less                | Beer share of revenue (now 69%)        |
-| 4 | Re-run monthly, and use the history file to see what improved and what got worse                     | Health score and profit vs last month  |
-
-These actions are the Business Doctor's output (action 1) plus the analyst's reading of the results (actions 2-4).
+| Question     | What the tool gives you                                                                                                                                  |
+|--------------|----------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **What**     | Revenue, costs and profit/loss, break-even revenue, margins, cash-flow runway, liquidity ratios, and an overall Business Health Score (0-100)             |
+| **Why**      | A breakdown per product and per supplier, showing which product carries the business, which one drags it down, and which cost takes too large a share   |
+| **So what**  | A risk level (Low / Medium / High / Critical) and what-if scenarios that show how profit changes if prices, sales or product costs move                  |
+| **Now what** | The "Business Doctor": a ranked to-do list, biggest estimated financial impact first, with concrete suggestions such as which product to reprice          |
 
 ---
 
-## What it does
+## How it works
 
 The tool walks the owner through the business step by step.
 
-**Collects the numbers**
+**1. Collects the numbers**
 - Fixed monthly costs, entered one item at a time (rent, utilities, subscriptions)
 - Each product: selling price, cost to make one unit, units sold per month
 - Employees and employer contributions
@@ -84,25 +39,25 @@ The tool walks the owner through the business step by step.
 - Optional: VAT/sales tax, card or delivery-platform fees, waste, equipment depreciation
 - Liquidity snapshot: unpaid supplier invoices, short-term debts, receivables, inventory
 
-**Diagnoses the business**
+**2. Diagnoses the business**
 - Revenue, costs and profit/loss, broken down per product and per supplier
 - Break-even revenue
 - Cash-flow runway: how many months the reserve lasts if the current trend continues
 - Gross, operating and net margin
-- Bankruptcy risk score and a combined risk level (Low / Medium / High / Critical)
+- Bankruptcy risk score and a combined risk level
 - Liquidity ratios: current ratio, quick ratio, cash ratio and working capital, each explained in plain language
 - Payroll check: how many employees, and what average salary, the business can sustain
-- Business Health Score (0-100), weighted from profit, margin, cash flow, break-even and risk
+- Business Health Score, weighted from profit, margin, cash flow, break-even and risk
 
-**Tests what could go wrong**
+**3. Tests what could go wrong**
 - What-if scenarios: prices +10%, sales -20%, product costs +15%
 
-**Tells the owner what to do**
-- **Business Doctor:** a ranked list of problems, biggest estimated financial impact first. For example: which product earns too little and what price to move it to, which cost takes too large a share of revenue, whether the business depends on a single supplier
+**4. Tells the owner what to do**
+- **Business Doctor:** a ranked list of problems with concrete suggestions and an estimated monthly impact for each
 - **Instant price simulation:** apply the suggested prices on the spot and see every number update
 - Net profit after income tax, using a rate the user provides
 
-**Saves the results**
+**5. Saves the results**
 - Full text report
 - Break-even chart, per-product profitability chart and scenario comparison chart
 - A history file, so the next run shows what improved and what got worse compared with the previous one
